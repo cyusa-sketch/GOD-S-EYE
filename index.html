@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>God's Eye Company | AI-Powered Call Center Solutions</title>
+
+    <!-- Tailwind (dark mode via class) -->
+    <script>tailwind = { config: { darkMode: 'class' } };</script>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Animate.css / Font Awesome / GSAP -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --brand: #e11d48; /* red-600 */
+            --ink: #111827; /* gray-900 */
+            --paper: #ffffff;
+            --ink-2: #374151;
+        }
+
+        body {
+            font-family: 'Poppins',sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        /* Section spacing (padding inside + margin between) */
+        .sectioned {
+            padding-top: 4rem;
+            padding-bottom: 4rem;
+        }
+
+        @media (min-width:768px) {
+            .sectioned {
+                padding-top: 6rem;
+                padding-bottom: 6rem;
+            }
+        }
+
+        .sectioned + .sectioned {
+            margin-top: 3rem;
+        }
+
+        @media (min-width:768px) {
+            .sectioned + .sectioned {
+                margin-top: 3.5rem;
+            }
+        }
+
+        /* Team flip */
+        .team-card:hover .team-info {
+            transform: rotateY(180deg);
+        }
+
+        .team-card .team-info {
+            transition: transform .6s;
+            transform-style: preserve-3d;
+        }
+
+        .team-front, .team-back {
+            backface-visibility: hidden;
+            position: absolute;
+            inset: 0;
+        }
+
+        .team-back {
+            transform: rotateY(180deg);
+        }
+
+        /* Fun */
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0% {
+                transform: translateY(0)
+            }
+
+            50% {
+                transform: translateY(-12px)
+            }
+
+            100% {
+                transform: translateY(0)
+            }
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg,#e53e3e,#38a169);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* Mobile tweaks */
+        @media (max-width:768px) {
+            .hero-padding {
+                padding-top: 6rem;
+                padding-bottom: 3rem;
+            }
+
+            .text-responsive {
+                font-size: 1.5rem;
+            }
+
+            .team-card {
+                height: auto;
+                min-height: 400px;
+                margin-bottom: 2rem;
+            }
+
+            .team-info, .team-front, .team-back {
+                position: relative;
+                min-height: 400px;
+            }
+
+            .contact-form-padding {
+                padding-top: 2rem;
+            }
+        }
+
+        /* Video overlay for hero (keeps text readable) */
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg,rgba(0,0,0,.56),rgba(0,0,0,.45) 35%, rgba(0,0,0,.35));
+        }
+
+        /* ===== Formal section backgrounds (light) ===== */
+        /* hero handled by video */
+        #benefits {
+            background: linear-gradient(180deg,#ffffff 0%, #f6f9ff 100%);
+        }
+
+        #about {
+            background: linear-gradient(180deg,#fbfbff 0%, #ffffff 100%);
+        }
+
+        #services {
+            background: linear-gradient(180deg,#ffffff 0%, #f9fffb 100%);
+        }
+
+        #industries {
+            background: linear-gradient(180deg,#ffffff 0%, #f8fbff 100%);
+        }
+
+        #team {
+            background: linear-gradient(180deg,#ffffff 0%, #f6f7fb 100%);
+        }
+
+        #contact {
+            background: linear-gradient(180deg,#ffffff 0%, #f9fafb 100%);
+        }
+
+        /* ===== Light-mode forcing (for select = Light) ===== */
+        html.force-light, html.force-light body {
+            background: #ffffff !important;
+            color: #111827 !important;
+        }
+
+            html.force-light .bg-gray-50,
+            html.force-light .bg-gray-100,
+            html.force-light .bg-gray-200,
+            html.force-light .bg-white,
+            html.force-light .dark\:bg-gray-900,
+            html.force-light .dark\:bg-gray-950,
+            html.force-light .dark\:bg-gray-800 {
+                background: #ffffff !important;
+            }
+
+            html.force-light nav, html.force-light .topbar {
+                background: #ffffff !important;
+            }
+
+                html.force-light nav a, html.force-light nav span, html.force-light nav button:not(.bg-red-600) {
+                    color: #111827 !important;
+                }
+
+                html.force-light nav .text-white {
+                    color: #111827 !important;
+                }
+
+            html.force-light .text-white {
+                color: #111827 !important;
+            }
+
+            html.force-light .keep-white, html.force-light .keep-white * {
+                color: #ffffff !important;
+            }
+
+            html.force-light #hero .btn-ghost {
+                border-color: #111827 !important;
+                color: #111827 !important;
+                background: transparent !important;
+            }
+
+            html.force-light footer {
+                background: #ffffff !important;
+                color: #111827 !important;
+            }
+
+                html.force-light footer a {
+                    color: #374151 !important;
+                }
+
+            html.force-light input, html.force-light textarea, html.force-light select {
+                background: #ffffff !important;
+                color: #111827 !important;
+                border-color: #d1d5db !important;
+            }
+
+        /* ===== INDUSTRY/SERVICE image cards ===== */
+        .card-figure {
+            position: relative;
+            height: 11rem;
+            overflow: hidden;
+            background: linear-gradient(135deg,#e5e7eb,#d1d5db);
+        }
+
+            .card-figure img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                filter: contrast(105%) saturate(105%);
+                transform: scale(1.02);
+            }
+
+            .card-figure::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(180deg,rgba(0,0,0,.45),rgba(0,0,0,.55) 55%, rgba(0,0,0,.65));
+            }
+
+        /* ===== PRELOADER ===== */
+        #preloader {
+            transition: opacity .65s ease;
+        }
+
+            #preloader.is-hidden {
+                opacity: 0;
+                pointer-events: none;
+            }
+
+        @media (prefers-reduced-motion:no-preference) {
+            @keyframes pulseDot {
+                0%,80%,100% {
+                    opacity: .25;
+                    transform: translateY(0)
+                }
+
+                40% {
+                    opacity: 1;
+                    transform: translateY(-3px)
+                }
+            }
+
+            #preloader .dot {
+                animation: pulseDot 1.1s ease-in-out infinite;
+            }
+
+                #preloader .dot:nth-child(2) {
+                    animation-delay: .25s;
+                }
+
+                #preloader .dot:nth-child(3) {
+                    animation-delay: .10s;
+                }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-800 dark:bg-gray-950 dark:text-gray-100">
+
+    <!-- ================== PRELOADER ================== -->
+    <div id="preloader" class="fixed inset-0 z-[70] grid place-items-center bg-white dark:bg-gray-950">
+        <div class="flex flex-col items-center select-none" role="status" aria-live="polite">
+            <div class="text-2xl md:text-3xl font-extrabold tracking-wide text-gray-900 dark:text-white">
+                God’s Eye
+            </div>
+            <div class="mt-3 flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                <span class="dot w-2 h-2 rounded-full bg-current"></span>
+                <span class="dot w-2 h-2 rounded-full bg-current"></span>
+                <span class="dot w-2 h-2 rounded-full bg-current"></span>
+            </div>
+            <span class="sr-only">Loading</span>
+        </div>
+    </div>
+    <!-- =============================================== -->
+    <!-- Top utility bar with Theme Selector -->
+    <div class="topbar fixed z-[60] top-0 inset-x-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur border-b border-gray-200 dark:border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-10 flex items-center justify-end gap-3">
+            <label for="themeSelect" class="text-xs text-gray-600 dark:text-gray-300">Theme:</label>
+            <select id="themeSelect" class="text-xs px-2 py-1 rounded border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-red-600">
+                <option value="dark">Dark</option>
+                <option value="light">Light</option>
+                <option value="system">System</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full top-10 bg-white/90 dark:bg-gray-900/80 backdrop-blur shadow-md z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <img class="h-16 w-auto" src="logo.jpg" alt="God's Eye Logo">
+                        <span class="ml-2 text-xl font-bold text-gray-900 dark:text-gray-100">God's Eye</span>
+                    </div>
+                </div>
+                <div class="hidden md:ml-6 md:flex md:items-center md:space-x-8">
+                    <a href="#home" class="text-gray-900 dark:text-gray-200 hover:text-red-600 px-3 py-2 text-sm font-medium">Home</a>
+                    <a href="#about" class="text-gray-900 dark:text-gray-200 hover:text-red-600 px-3 py-2 text-sm font-medium">About</a>
+                    <a href="#services" class="text-gray-900 dark:text-gray-200 hover:text-red-600 px-3 py-2 text-sm font-medium">Services</a>
+                    <a href="#industries" class="text-gray-900 dark:text-gray-200 hover:text-red-600 px-3 py-2 text-sm font-medium">Industries</a>
+                    <a href="#team" class="text-gray-900 dark:text-gray-200 hover:text-red-600 px-3 py-2 text-sm font-medium">Team</a>
+                    <a href="#contact" class="text-gray-900 dark:text-gray-200 hover:text-red-600 px-3 py-2 text-sm font-medium">Contact</a>
+                </div>
+                <div class="-mr-2 flex items-center md:hidden">
+                    <button type="button" id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-500 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none">
+                        <span class="sr-only">Open main menu</span>
+                        <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-gray-900 shadow-lg">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 dark:text-gray-100 hover:text-red-600">Home</a>
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 dark:text-gray-100 hover:text-red-600">About</a>
+                <a href="#services" class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 dark:text-gray-100 hover:text-red-600">Services</a>
+                <a href="#industries" class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 dark:text-gray-100 hover:text-red-600">Industries</a>
+                <a href="#team" class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 dark:text-gray-100 hover:text-red-600">Team</a>
+                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 dark:text-gray-100 hover:text-red-600">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero (video) -->
+        <section id="home" class="sectioned hero-padding text-white relative overflow-hidden pt-[7.5rem] md:pt-[8.5rem]">
+            <video class="absolute inset-0 w-full h-full object-cover"
+                   src="landing-720p.mp4"  <!-- put your real path -->
+             poster="landing-poster.jpg"
+             autoplay muted playsinline loop preload="auto"></video>
+            <div class="hero-overlay"></div>
+
+            <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="md:flex md:items-center md:justify-between">
+                    <div class="md:w-1/2 animate__animated animate__fadeInLeft">
+                        <h1 class="keep-white text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight mb-6 text-responsive">
+                            Smart Call Center Service <span class="gradient-text">without GSM</span>
+                        </h1>
+                        <p class="keep-white text-lg md:text-xl lg:text-2xl mb-8 text-blue-100">
+                            AI + Human powered solutions for seamless customer experiences
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <a href="#contact" class="bg-white text-gray-900 hover:bg-gray-100 px-6 py-3 rounded-lg text-base font-semibold transition duration-300 transform hover:scale-105 shadow-lg">Contact Us</a>
+                            <a href="#services" class="btn-ghost bg-transparent border-2 border-white text-white hover:bg-white hover:text-blue-900 px-6 py-3 rounded-lg text-base font-semibold transition duration-300 transform hover:scale-105">Explore Services</a>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2 mt-10 md:mt-0"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Benefits -->
+        <section id="benefits" class="sectioned">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12">
+                    Why Choose Our <span class="text-red-600">AI Call Center</span> Solutions?
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 md:gap-8">
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md hover:shadow-xl transition transform hover:-translate-y-2 animate__animated animate__fadeIn animate__delay-1s">
+                        <div class="bg-red-100 w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto"><i class="fas fa-clock text-red-600 text-2xl"></i></div>
+                        <h3 class="text-xl font-semibold text-center mb-2">24/7 Availability</h3>
+                        <p class="text-gray-600 dark:text-gray-300 text-center">Round-the-clock support without downtime or holidays</p>
+                    </div>
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md hover:shadow-xl transition transform hover:-translate-y-2 animate__animated animate__fadeIn animate__delay-2s">
+                        <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto"><i class="fas fa-money-bill-wave text-green-600 text-2xl"></i></div>
+                        <h3 class="text-xl font-semibold text-center mb-2">Cost Savings</h3>
+                        <p class="text-gray-600 dark:text-gray-300 text-center">Reduce operational costs by up to 60%</p>
+                    </div>
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md hover:shadow-xl transition transform hover:-translate-y-2 animate__animated animate__fadeIn animate__delay-3s">
+                        <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto"><i class="fas fa-bolt text-blue-600 text-2xl"></i></div>
+                        <h3 class="text-xl font-semibold text-center mb-2">Fast Communication</h3>
+                        <p class="text-gray-600 dark:text-gray-300 text-center">Instant responses with AI-powered systems</p>
+                    </div>
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md hover:shadow-xl transition transform hover:-translate-y-2 hidden lg:block animate__animated animate__fadeIn animate__delay-4s">
+                        <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto"><i class="fas fa-chart-line text-purple-600 text-2xl"></i></div>
+                        <h3 class="text-xl font-semibold text-center mb-2">Revenue Growth</h3>
+                        <p class="text-gray-600 dark:text-gray-300 text-center">Increase conversions with smart routing</p>
+                    </div>
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md hover:shadow-xl transition transform hover:-translate-y-2 hidden lg:block animate__animated animate__fadeIn animate__delay-5s">
+                        <div class="bg-yellow-100 w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto"><i class="fas fa-smile text-yellow-600 text-2xl"></i></div>
+                        <h3 class="text-xl font-semibold text-center mb-2">Customer Satisfaction</h3>
+                        <p class="text-gray-600 dark:text-gray-300 text-center">Personalized service that delights</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About -->
+        <section id="about" class="sectioned">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="lg:flex lg:items-center lg:justify-between">
+                    <div class="lg:w-1/2 mb-10 lg:mb-0 animate__animated animate__fadeInLeft">
+                        <div class="w-full h-72 md:h-80 bg-gray-200 dark:bg-gray-800 rounded-xl grid place-items-center text-gray-600 dark:text-gray-300">About Us</div>
+                    </div>
+                    <div class="lg:w-1/2 lg:pl-12 animate__animated animate__fadeInRight">
+                        <h2 class="text-2xl md:text-3xl font-bold mb-6">About <span class="text-red-600">God's Eye</span></h2>
+                        <div class="mb-8">
+                            <h3 class="text-xl font-semibold mb-3 flex items-center"><span class="bg-red-600 w-8 h-8 rounded-full grid place-items-center text-white mr-3">1</span>Our Mission</h3>
+                            <p class="text-gray-600 dark:text-gray-300">"To empower people and businesses by unlocking the full potential of AI and Internet technologies through innovative solutions, education, and exceptional support services that drive growth and create meaningful connections."</p>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-3 flex items-center"><span class="bg-blue-600 w-8 h-8 rounded-full grid place-items-center text-white mr-3">2</span>Our Vision</h3>
+                            <p class="text-gray-600 dark:text-gray-300">"To be the leading force in AI, Internet innovation, education, and support services, transforming how businesses interact with their customers while creating sustainable job opportunities and technological advancements that benefit society."</p>
+                        </div>
+                        <div class="mt-8 grid grid-cols-2 gap-4">
+                            <div class="bg-white dark:bg-gray-900 p-4 rounded-lg shadow-md border-l-4 border-red-600">
+                                <h4 class="font-bold mb-1">10+ Years</h4><p class="text-gray-600 dark:text-gray-300 text-sm">Industry Experience</p>
+                            </div>
+                            <div class="bg-white dark:bg-gray-900 p-4 rounded-lg shadow-md border-l-4 border-green-600">
+                                <h4 class="font-bold mb-1">500+</h4><p class="text-gray-600 dark:text-gray-300 text-sm">Satisfied Clients</p>
+                            </div>
+                            <div class="bg-white dark:bg-gray-900 p-4 rounded-lg shadow-md border-l-4 border-blue-600">
+                                <h4 class="font-bold mb-1">24/7</h4><p class="text-gray-600 dark:text-gray-300 text-sm">Support Availability</p>
+                            </div>
+                            <div class="bg-white dark:bg-gray-900 p-4 rounded-lg shadow-md border-l-4 border-purple-600">
+                                <h4 class="font-bold mb-1">98%</h4><p class="text-gray-600 dark:text-gray-300 text-sm">Customer Satisfaction</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services -->
+        <section id="services" class="sectioned">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-8 md:mb-16">
+                    <h2 class="text-2xl md:text-3xl font-bold mb-4">Our <span class="text-red-600">Services</span></h2>
+                    <p class="text-base md:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">Comprehensive AI-powered solutions to transform your customer support and operations.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                    <!-- 1 Smart Call Center -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition">
+                        <figure class="card-figure">
+                            <!-- replace with your uploaded CALL CENTER image path -->
+                            <img src="CALL%20CENTER.jpeg" alt="Smart Call Center" />
+                        </figure>
+                        <div class="p-6">
+                            <div class="flex items-center mb-4"><div class="bg-red-100 p-3 rounded-full mr-4"><i class="fas fa-headset text-red-600 text-xl"></i></div><h3 class="text-xl font-bold">Smart Call Center Service</h3></div>
+                            <p class="text-gray-600 dark:text-gray-300 mb-4">AI + Human hybrid, no traditional GSM required.</p>
+                            <ul class="space-y-2 text-gray-600 dark:text-gray-300">
+                                <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i>24/7 multilingual support</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i>Intelligent routing</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i>Real-time analytics</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- 2 AI Dev -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition">
+                        <figure class="card-figure">
+                            <!-- replace with your uploaded AI image path -->
+                            <img src="ai.jpeg" alt="AI Development" />
+                        </figure>
+                        <div class="p-6">
+                            <div class="flex items-center mb-4"><div class="bg-green-100 p-3 rounded-full mr-4"><i class="fas fa-robot text-green-600 text-xl"></i></div><h3 class="text-xl font-bold">AI Development & Control</h3></div>
+                            <p class="text-gray-600 dark:text-gray-300 mb-4">Custom models with monitoring & optimization.</p>
+                            <ul class="space-y-2 text-gray-600 dark:text-gray-300">
+                                <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i>NLP</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i>ML models</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i>Predictive analytics</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- 3 Education -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition">
+                        <figure class="card-figure">
+                            <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop" alt="Education & Job Creation" />
+                        </figure>
+                        <div class="p-6">
+                            <div class="flex items-center mb-4"><div class="bg-blue-100 p-3 rounded-full mr-4"><i class="fas fa-graduation-cap text-blue-600 text-xl"></i></div><h3 class="text-xl font-bold">Education & Job Creation</h3></div>
+                            <p class="text-gray-600 dark:text-gray-300 mb-4">Training programs & employment pathways.</p>
+                            <ul class="space-y-2 text-gray-600 dark:text-gray-300">
+                                <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i>AI & tech training</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i>Career development</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i>Internships</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- 4 Business Support (24/7 SERVICE image) -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition">
+                        <figure class="card-figure">
+                            <!-- replace with your uploaded "24/7 Service" flyer -->
+                            <img src="data.jpeg" alt="Business Support" />
+                        </figure>
+                        <div class="p-6">
+                            <div class="flex items-center mb-4"><div class="bg-purple-100 p-3 rounded-full mr-4"><i class="fas fa-hands-helping text-purple-600 text-xl"></i></div><h3 class="text-xl font-bold">Business Support Services</h3></div>
+                            <p class="text-gray-600 dark:text-gray-300 mb-4">Back-office & operational excellence.</p>
+                            <ul class="space-y-2 text-gray-600 dark:text-gray-300">
+                                <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i>Virtual assistance</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i>Data processing</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i>Admin support</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- 5 Internet Tech -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition">
+                        <figure class="card-figure">
+                            <img src="https://images.unsplash.com/photo-1522071901873-411886a10004?q=80&w=1200&auto=format&fit=crop" alt="Internet Technology" />
+                        </figure>
+                        <div class="p-6">
+                            <div class="flex items-center mb-4"><div class="bg-yellow-100 p-3 rounded-full mr-4"><i class="fas fa-globe text-yellow-600 text-xl"></i></div><h3 class="text-xl font-bold">Internet Technology Innovation</h3></div>
+                            <p class="text-gray-600 dark:text-gray-300 mb-4">Web & mobile to stay ahead.</p>
+                            <ul class="space-y-2 text-gray-600 dark:text-gray-300">
+                                <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i>Web development</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i>Mobile apps</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i>Cloud solutions</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- 6 Custom Solutions -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition">
+                        <figure class="card-figure">
+                            <img src="custom.jpeg" alt="Custom Solutions" />
+                        </figure>
+                        <div class="p-6">
+                            <div class="flex items-center mb-4"><div class="bg-pink-100 p-3 rounded-full mr-4"><i class="fas fa-cogs text-pink-600 text-xl"></i></div><h3 class="text-xl font-bold">Custom Solutions</h3></div>
+                            <p class="text-gray-600 dark:text-gray-300 mb-4">Tailored for your unique needs.</p>
+                            <ul class="space-y-2 text-gray-600 dark:text-gray-300">
+                                <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i>Bespoke dev</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i>System integration</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i>Ongoing support</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Industries -->
+        <section id="industries" class="sectioned">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-8 md:mb-16">
+                    <h2 class="text-2xl md:text-3xl font-bold mb-4">Industries <span class="text-red-600">We Serve</span></h2>
+                    <p class="text-base md:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">Transforming customer support across sectors.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                    <!-- E-comm -->
+                    <div class="bg-white dark:bg-gray-900 rounded-xl shadow-md hover:shadow-xl transition group overflow-hidden">
+                        <figure class="card-figure">
+                            <!-- replace with your e-commerce image -->
+                            <img src="e-commerce.jpeg" alt="E-commerce" />
+                        </figure>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">E-commerce & Retail</h3>
+                            <p class="text-gray-600 dark:text-gray-300 mb-4">Order support, tracking & personalization.</p>
+                            <div class="flex flex-wrap items-center gap-4 text-2xl text-gray-500 dark:text-gray-400">
+                                <i class="fa-brands fa-amazon"></i><i class="fa-brands fa-shopify"></i><i class="fa-brands fa-woocommerce"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Finance -->
+                    <div class="bg-white dark:bg-gray-900 rounded-xl shadow-md hover:shadow-xl transition group overflow-hidden">
+                        <figure class="card-figure">
+                            <!-- replace with your finance word image -->
+                            <img src="finance.jpeg" alt="Finance" />
+                        </figure>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Finance & Insurance</h3>
+                            <p class="text-gray-600 dark:text-gray-300 mb-4">Secure account help & claims.</p>
+                            <div class="flex flex-wrap items-center gap-4 text-2xl text-gray-500 dark:text-gray-400">
+                                <i class="fa-brands fa-cc-visa"></i><i class="fa-brands fa-cc-mastercard"></i><i class="fa-brands fa-cc-paypal"></i><i class="fa-brands fa-stripe"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Technology -->
+                    <div class="bg-white dark:bg-gray-900 rounded-xl shadow-md hover:shadow-xl transition group overflow-hidden">
+                        <figure class="card-figure">
+                            <!-- replace with your SaaS image -->
+                            <img src="saas.jpeg" alt="Technology & SaaS" />
+                        </figure>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Technology & SaaS</h3>
+                            <p class="text-gray-600 dark:text-gray-300 mb-4">Support, onboarding & troubleshooting.</p>
+                            <div class="flex flex-wrap items-center gap-4 text-2xl text-gray-500 dark:text-gray-400">
+                                <i class="fa-brands fa-aws"></i><i class="fa-brands fa-microsoft"></i><i class="fa-brands fa-google"></i><i class="fa-brands fa-slack"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Travel -->
+                    <div class="bg-white dark:bg-gray-900 rounded-xl shadow-md hover:shadow-xl transition group overflow-hidden">
+                        <figure class="card-figure">
+                            <!-- replace with hotel/booking illustration -->
+                            <img src="travel.jpeg" alt="Travel & Hospitality" />
+                        </figure>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Travel & Hospitality</h3>
+                            <p class="text-gray-600 dark:text-gray-300 mb-4">Bookings, changes & concierge.</p>
+                            <div class="flex flex-wrap items-center gap-4 text-2xl text-gray-500 dark:text-gray-400">
+                                <i class="fa-brands fa-airbnb"></i><i class="fa-solid fa-hotel"></i><i class="fa-solid fa-plane-departure"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Healthcare -->
+                    <div class="bg-white dark:bg-gray-900 rounded-xl shadow-md hover:shadow-xl transition group overflow-hidden">
+                        <figure class="card-figure">
+                            <!-- replace with telemedicine photo -->
+                            <img src="hospitality.jpeg" alt="Healthcare & Telemedicine" />
+                        </figure>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Healthcare & Telemedicine</h3>
+                            <p class="text-gray-600 dark:text-gray-300 mb-4">Appointments, billing & support.</p>
+                            <div class="flex flex-wrap items-center gap-2">
+                                <span class="px-3 py-1 rounded-full bg-green-100 text-green-800 text-xs">HL7</span>
+                                <span class="px-3 py-1 rounded-full bg-blue-100 text-blue-800 text-xs">FHIR</span>
+                                <span class="px-3 py-1 rounded-full bg-purple-100 text-purple-800 text-xs">Telehealth</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Government -->
+                    <div class="bg-white dark:bg-gray-900 rounded-xl shadow-md hover:shadow-xl transition group overflow-hidden">
+                        <figure class="card-figure">
+                            <!-- replace with public services word-banner -->
+                            <img src="public.jpeg" alt="Government & Public Services" />
+                        </figure>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Government & Public Services</h3>
+                            <p class="text-gray-600 dark:text-gray-300 mb-4">Citizen help & emergency response.</p>
+                            <div class="flex flex-wrap items-center gap-2">
+                                <span class="px-3 py-1 rounded-full bg-gray-100 text-gray-800 text-xs dark:bg-gray-800 dark:text-gray-200">311</span>
+                                <span class="px-3 py-1 rounded-full bg-gray-100 text-gray-800 text-xs dark:bg-gray-800 dark:text-gray-200">e-Services</span>
+                                <span class="px-3 py-1 rounded-full bg-gray-100 text-gray-800 text-xs dark:bg-gray-800 dark:text-gray-200">Emergency</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team -->
+        <section id="team" class="sectioned">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-8 md:mb-16">
+                    <h2 class="text-2xl md:text-3xl font-bold mb-4">Meet Our <span class="text-red-600">Team</span></h2>
+                    <p class="text-base md:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">The minds behind our solutions</p>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                    <!-- 1 -->
+                    <div class="team-card relative h-auto md:h-96 animate__animated animate__fadeIn">
+                        <div class="team-info relative w-full h-full">
+                            <div class="team-front bg-gray-50 dark:bg-gray-800 rounded-xl shadow-md p-6 flex flex-col items-center">
+                                <div class="w-28 h-28 md:w-32 md:h-32 rounded-full overflow-hidden mb-4 border-4 border-white shadow-lg">
+                                    <img src="https://via.placeholder.com/300x300?text=Photo" alt="Member" class="w-full h-full object-cover">
+                                </div>
+                                <h3 class="text-xl font-bold">John Smith</h3>
+                                <p class="text-red-600 font-medium mb-4">CEO & Founder</p>
+                                <div class="flex space-x-3 mb-4 text-gray-600 dark:text-gray-300">
+                                    <a href="#" class="hover:text-blue-600"><i class="fab fa-linkedin-in"></i></a>
+                                    <a href="#" class="hover:text-gray-900 dark:hover:text-white"><i class="fab fa-twitter"></i></a>
+                                    <a href="#" class="hover:text-pink-600"><i class="fab fa-instagram"></i></a>
+                                </div>
+                                <button class="mt-auto bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md text-sm font-medium">View Profile</button>
+                            </div>
+                            <div class="team-back bg-gray-50 dark:bg-gray-800 rounded-xl shadow-md p-6 flex flex-col items-center justify-center">
+                                <h3 class="text-xl font-bold mb-2">John Smith</h3>
+                                <p class="text-red-600 font-medium mb-4">CEO & Founder</p>
+                                <p class="text-gray-600 dark:text-gray-300 text-sm text-center mb-4">15+ years in AI tech & leadership.</p>
+                                <div class="flex space-x-2">
+                                    <span class="bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-200 text-xs px-2 py-1 rounded">AI Expert</span>
+                                    <span class="bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-200 text-xs px-2 py-1 rounded">Strategy</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 2 -->
+                    <div class="team-card relative h-auto md:h-96 animate__animated animate__fadeIn animate__delay-1s">
+                        <div class="team-info relative w-full h-full">
+                            <div class="team-front bg-gray-50 dark:bg-gray-800 rounded-xl shadow-md p-6 flex flex-col items-center">
+                                <div class="w-28 h-28 md:w-32 md:h-32 rounded-full overflow-hidden mb-4 border-4 border-white shadow-lg">
+                                    <img src="https://via.placeholder.com/300x300?text=Photo" alt="Member" class="w-full h-full object-cover">
+                                </div>
+                                <h3 class="text-xl font-bold">Sarah Johnson</h3>
+                                <p class="text-red-600 font-medium mb-4">Chief Technology Officer</p>
+                                <div class="flex space-x-3 mb-4 text-gray-600 dark:text-gray-300">
+                                    <a href="#" class="hover:text-blue-600"><i class="fab fa-linkedin-in"></i></a>
+                                    <a href="#" class="hover:text-gray-900 dark:hover:text-white"><i class="fab fa-twitter"></i></a>
+                                    <a href="#" class="hover:text-pink-600"><i class="fab fa-instagram"></i></a>
+                                </div>
+                                <button class="mt-auto bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md text-sm font-medium">View Profile</button>
+                            </div>
+                            <div class="team-back bg-gray-50 dark:bg-gray-800 rounded-xl shadow-md p-6 flex flex-col items-center justify-center">
+                                <h3 class="text-xl font-bold mb-2">Sarah Johnson</h3>
+                                <p class="text-red-600 font-medium mb-4">Chief Technology Officer</p>
+                                <p class="text-gray-600 dark:text-gray-300 text-sm text-center mb-4">ML PhD; leads AI development.</p>
+                                <div class="flex space-x-2">
+                                    <span class="bg-purple-100 text-purple-800 dark:bg-purple-900/40 dark:text-purple-200 text-xs px-2 py-1 rounded">ML</span>
+                                    <span class="bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-200 text-xs px-2 py-1 rounded">Research</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 3 -->
+                    <div class="team-card relative h-auto md:h-96 animate__animated animate__fadeIn animate__delay-2s">
+                        <div class="team-info relative w-full h-full">
+                            <div class="team-front bg-gray-50 dark:bg-gray-800 rounded-xl shadow-md p-6 flex flex-col items-center">
+                                <div class="w-28 h-28 md:w-32 md:h-32 rounded-full overflow-hidden mb-4 border-4 border-white shadow-lg">
+                                    <img src="https://via.placeholder.com/300x300?text=Photo" alt="Member" class="w-full h-full object-cover">
+                                </div>
+                                <h3 class="text-xl font-bold">Michael Chen</h3>
+                                <p class="text-red-600 font-medium mb-4">Director of Operations</p>
+                                <div class="flex space-x-3 mb-4 text-gray-600 dark:text-gray-300">
+                                    <a href="#" class="hover:text-blue-600"><i class="fab fa-linkedin-in"></i></a>
+                                    <a href="#" class="hover:text-gray-900 dark:hover:text-white"><i class="fab fa-twitter"></i></a>
+                                    <a href="#" class="hover:text-pink-600"><i class="fab fa-instagram"></i></a>
+                                </div>
+                                <button class="mt-auto bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md text-sm font-medium">View Profile</button>
+                            </div>
+                            <div class="team-back bg-gray-50 dark:bg-gray-800 rounded-xl shadow-md p-6 flex flex-col items-center justify-center">
+                                <h3 class="text-xl font-bold mb-2">Michael Chen</h3>
+                                <p class="text-red-600 font-medium mb-4">Director of Operations</p>
+                                <p class="text-gray-600 dark:text-gray-300 text-sm text-center mb-4">Global ops, efficiency & QA.</p>
+                                <div class="flex space-x-2">
+                                    <span class="bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-200 text-xs px-2 py-1 rounded">Ops</span>
+                                    <span class="bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-200 text-xs px-2 py-1 rounded">QA</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 4 -->
+                    <div class="team-card relative h-auto md:h-96 animate__animated animate__fadeIn animate__delay-3s">
+                        <div class="team-info relative w-full h-full">
+                            <div class="team-front bg-gray-50 dark:bg-gray-800 rounded-xl shadow-md p-6 flex flex-col items-center">
+                                <div class="w-28 h-28 md:w-32 md:h-32 rounded-full overflow-hidden mb-4 border-4 border-white shadow-lg">
+                                    <img src="https://via.placeholder.com/300x300?text=Photo" alt="Member" class="w-full h-full object-cover">
+                                </div>
+                                <h3 class="text-xl font-bold">Emily Rodriguez</h3>
+                                <p class="text-red-600 font-medium mb-4">Customer Success Manager</p>
+                                <div class="flex space-x-3 mb-4 text-gray-600 dark:text-gray-300">
+                                    <a href="#" class="hover:text-blue-600"><i class="fab fa-linkedin-in"></i></a>
+                                    <a href="#" class="hover:text-gray-900 dark:hover:text-white"><i class="fab fa-twitter"></i></a>
+                                    <a href="#" class="hover:text-pink-600"><i class="fab fa-instagram"></i></a>
+                                </div>
+                                <button class="mt-auto bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md text-sm font-medium">View Profile</button>
+                            </div>
+                            <div class="team-back bg-gray-50 dark:bg-gray-800 rounded-xl shadow-md p-6 flex flex-col items-center justify-center">
+                                <h3 class="text-xl font-bold mb-2">Emily Rodriguez</h3>
+                                <p class="text-red-600 font-medium mb-4">Customer Success Manager</p>
+                                <p class="text-gray-600 dark:text-gray-300 text-sm text-center mb-4">Drives value & adoption.</p>
+                                <div class="flex space-x-2">
+                                    <span class="bg-indigo-100 text-indigo-800 dark:bg-indigo-900/40 dark:text-indigo-200 text-xs px-2 py-1 rounded">Relations</span>
+                                    <span class="bg-teal-100 text-teal-800 dark:bg-teal-900/40 dark:text-teal-200 text-xs px-2 py-1 rounded">Training</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-12">
+                    <a href="#contact" class="bg-white dark:bg-gray-800 border-2 border-red-600 text-red-600 hover:bg-red-600 hover:text-white px-8 py-3 rounded-lg text-lg font-semibold transition">View All Team Members</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact" class="sectioned">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="lg:flex lg:items-center lg:justify-between">
+                    <div class="lg:w-1/2 mb-10 lg:mb-0 animate__animated animate__fadeInLeft">
+                        <h2 class="text-2xl md:text-3xl font-bold mb-6">Get In <span class="text-red-600">Touch</span></h2>
+                        <p class="text-sm md:text-base text-gray-600 dark:text-gray-300 mb-8">Questions about our AI call center? We’ll reply within 24 hours.</p>
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="bg-red-100 p-3 rounded-full mr-4"><i class="fas fa-envelope text-red-600 text-xl"></i></div>
+                                <div><h4 class="font-bold mb-1">Email Us</h4><a href="mailto:info@godeyecallcenter.com" class="text-gray-600 dark:text-gray-300 hover:text-red-600">info@godeyecallcenter.com</a></div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="bg-blue-100 p-3 rounded-full mr-4"><i class="fas fa-globe text-blue-600 text-xl"></i></div>
+                                <div><h4 class="font-bold mb-1">Visit Us</h4><a href="https://www.godeyecallcenter.com" target="_blank" class="text-gray-600 dark:text-gray-300 hover:text-red-600">www.godeyecallcenter.com</a></div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="bg-green-100 p-3 rounded-full mr-4"><i class="fas fa-map-marker-alt text-green-600 text-xl"></i></div>
+                                <div><h4 class="font-bold mb-1">Location</h4><p class="text-gray-600 dark:text-gray-300">123 Tech Park, Innovation District, City, Country</p></div>
+                            </div>
+                        </div>
+                        <div class="mt-8">
+                            <h4 class="font-bold mb-3">Follow Us</h4>
+                            <div class="flex space-x-4">
+                                <a href="#" class="bg-blue-600 text-white p-3 rounded-full hover:bg-blue-700 transition"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#" class="bg-blue-400 text-white p-3 rounded-full hover:bg-blue-500 transition"><i class="fab fa-twitter"></i></a>
+                                <a href="#" class="bg-red-600 text-white p-3 rounded-full hover:bg-red-700 transition"><i class="fab fa-youtube"></i></a>
+                                <a href="#" class="bg-purple-600 text-white p-3 rounded-full hover:bg-purple-700 transition"><i class="fab fa-instagram"></i></a>
+                                <a href="#" class="bg-blue-700 text-white p-3 rounded-full hover:bg-blue-800 transition"><i class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:w-1/2 lg:pl-12 contact-form-padding animate__animated animate__fadeInRight">
+                        <div class="bg-white dark:bg-gray-900 rounded-xl shadow-xl p-6 md:p-8">
+                            <h3 class="text-xl md:text-2xl font-bold mb-6">Send Us a <span class="text-red-600">Message</span></h3>
+                            <form id="contactForm" class="space-y-6">
+                                <div>
+                                    <label for="name" class="block font-medium mb-2">Full Name</label>
+                                    <input type="text" id="name" name="name" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600" required>
+                                </div>
+                                <div>
+                                    <label for="email" class="block font-medium mb-2">Email Address</label>
+                                    <input type="email" id="email" name="email" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600" required>
+                                </div>
+                                <div>
+                                    <label for="phone" class="block font-medium mb-2">Phone Number (Optional)</label>
+                                    <input type="tel" id="phone" name="phone" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600">
+                                </div>
+                                <div>
+                                    <label for="message" class="block font-medium mb-2">Your Message</label>
+                                    <textarea id="message" name="message" rows="4" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600" required></textarea>
+                                </div>
+                                <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg transition transform hover:scale-105">Send Message</button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="sectioned bg-gray-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="md:col-span-2">
+                    <div class="flex items-center mb-4">
+                        <img class="h-10 w-auto" src="https://via.placeholder.com/150x50?text=God's+Eye" alt="God's Eye Logo">
+                        <span class="ml-2 text-xl font-bold">God's Eye</span>
+                    </div>
+                    <p class="text-gray-400 mb-4">AI-powered call center solutions that transform customer support and drive growth.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="hover:text-red-500">Home</a></li>
+                        <li><a href="#about" class="hover:text-red-500">About</a></li>
+                        <li><a href="#services" class="hover:text-red-500">Services</a></li>
+                        <li><a href="#industries" class="hover:text-red-500">Industries</a></li>
+                        <li><a href="#team" class="hover:text-red-500">Team</a></li>
+                        <li><a href="#contact" class="hover:text-red-500">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Newsletter</h3>
+                    <form class="space-y-3">
+                        <input type="email" placeholder="Your email" class="w-full px-4 py-2 rounded bg-gray-800 border border-gray-700 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-600">
+                        <button class="w-full bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <p class="text-center text-gray-400 text-sm mt-8">© <span id="year"></span> God’s Eye Company. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+    // Mobile menu toggle
+    const mobileBtn = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (mobileBtn && mobileMenu) mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // GSAP reveal animations
+    if (window.gsap) {
+      gsap.registerPlugin(ScrollTrigger);
+      gsap.utils.toArray('.sectioned').forEach(sec => {
+        gsap.from(sec, { opacity: 0, y: 40, duration: 0.8, ease: 'power2.out', scrollTrigger: { trigger: sec, start: 'top 85%' } });
+      });
+    }
+
+    // THEME CONTROL (Dark / Light / System)
+    const root = document.documentElement;
+    const THEME_KEY = 'ge-theme-mode';
+    const themeSelect = document.getElementById('themeSelect');
+    let mql = window.matchMedia('(prefers-color-scheme: dark)');
+
+    function setSystemListener(enabled){
+      if (setSystemListener._fn){
+        mql.removeEventListener('change', setSystemListener._fn);
+        setSystemListener._fn = null;
+      }
+      if (enabled){
+        setSystemListener._fn = (e)=> root.classList.toggle('dark', e.matches);
+        mql.addEventListener('change', setSystemListener._fn);
+      }
+    }
+
+    function applyTheme(mode){
+      root.classList.remove('dark','force-light');
+
+      if (mode === 'dark'){
+        root.classList.add('dark');
+        setSystemListener(false);
+        localStorage.setItem(THEME_KEY,'dark');
+      } else if (mode === 'light'){
+        root.classList.add('force-light');
+        setSystemListener(false);
+        localStorage.setItem(THEME_KEY,'light');
+      } else {
+        const prefersDark = mql.matches;
+        if (prefersDark) root.classList.add('dark');
+        setSystemListener(true);
+        localStorage.setItem(THEME_KEY,'system');
+      }
+      themeSelect.value = mode;
+    }
+
+    // Initial theme
+    applyTheme(localStorage.getItem(THEME_KEY) || 'dark');
+
+    // UI change
+    themeSelect.addEventListener('change', (e)=> applyTheme(e.target.value));
+
+    // PRELOADER CONTROL
+    (function () {
+      const pre = document.getElementById('preloader');
+      if (!pre) return;
+
+      const hide = () => {
+        if (!pre || pre.classList.contains('is-hidden')) return;
+        pre.classList.add('is-hidden');
+        setTimeout(() => pre.remove(), 480);
+      };
+
+      // Safety timeout
+      const SAFETY = setTimeout(hide, 2500);
+
+      // If hero video is ready, hide
+      document.addEventListener('DOMContentLoaded', () => {
+        const vid = document.querySelector('#home video');
+        if (!vid) return;
+        if (vid.readyState >= 3) { hide(); clearTimeout(SAFETY); return; }
+        const onReady = () => { hide(); clearTimeout(SAFETY); };
+        vid.addEventListener('canplaythrough', onReady, { once:true });
+        vid.addEventListener('loadeddata', onReady, { once:true });
+      });
+
+      window.addEventListener('load', () => { hide(); clearTimeout(SAFETY); });
+      window.addEventListener('pageshow', (e) => { if (e.persisted) hide(); });
+    })();
+    </script>
+</body>
+</html>
